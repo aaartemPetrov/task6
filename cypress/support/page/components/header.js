@@ -7,7 +7,7 @@ export class Header {
         this.cart = '#nav-cart';
         this.searchLine = '#twotabsearchtextbox';
         this.searchSubmitButton = '#nav-search-submit-button';
-        
+
         this.topMenu = topMenu;
     }
 
@@ -20,9 +20,9 @@ export class Header {
         cy.get(this.searchLine).should('exist').should('be.visible');
         cy.get(this.searchSubmitButton).should('exist').should('be.visible');
 
-         //sync
-         cy.log('SYNC: ');
-         cy.get(this.headerLocator).then(headerLocator => {
+        //sync
+        cy.log('SYNC: ');
+        cy.get(this.headerLocator).then(headerLocator => {
             expect(headerLocator).exist;
             expect(headerLocator).is.visible;
         })
@@ -45,7 +45,7 @@ export class Header {
     }
 
     typeSearchLine(string) {
-        cy.get(this.searchLine).clear().type(string);
+        cy.get(this.searchLine).clear().type(string, { force: true });
     }
 
     clickSubmitButton() {

@@ -3,5 +3,12 @@
     "fromPrice": 0,
     "toPrice": 500,
     "starRaiting": 4,
-    "language": "Deutsch"
+    "language": "Deutsch",
+    "sort": {
+        "Featured": "Featured",
+        "PriceLowToHigh": "Price: Low to High",
+        "PriceHighToLow": "Price: High to Low",
+        "CustomerReview": "Avg. Customer Review",
+        "Newest": "Newest Arrivals"
+    }
 }

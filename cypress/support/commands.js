@@ -39,3 +39,11 @@ Cypress.Commands.add('amazonLogin', (email, password) => {
     cy.get('#nav-item-signout').should('contain', 'Sign Out');
     cy.log('LOGINNED IN!!!')
 })
+
+Cypress.Commands.add('waitUntilElementDisappear', (elementLocator, timeout) => {
+    cy.get(elementLocator, {timeout: timeout}).should('not.be.visible');
+})
+
+Cypress.Commands.add('waitUntilElementAppear', (elementLocator, timeout) => {
+    cy.get(elementLocator, {timeout: timeout}).should('be.visible');
+})

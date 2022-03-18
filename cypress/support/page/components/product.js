@@ -14,10 +14,8 @@ export class Product {
         return cy.get(this.productTitle);
     }
 
-    getStarRaitingAsNumber() {
-        return cy.get(this.starRaiting).then(raiting => {
-            return cy.wrap(Number(raiting.text().substring(0, raiting.text().indexOf(' '))));
-        });
+    getStarRaitings() {
+        return cy.get(this.starRaiting);
     }
 
     locator() {

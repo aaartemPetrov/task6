@@ -12,20 +12,32 @@ describe('Amazon test', () => {
         homePage.visit();
     })
 
-    it('Search & Filtering products by raiting.', () => {
+    it('Search & sort than wait until loading indicator disappears', () => {
+        homePage.searchProduct(testData.searchedBrand);
+        searchResultPage.getProducts().getTitles().should('contain', testData.searchedBrand);
+        //u can use any type of sorting from fixtures/testData.json to sort
+        searchResultPage.sortProductsBy(testData.sort.CustomerReview);
+        //u can use any type of sorting from fixtures/testData.json to verify sort
+        searchResultPage.verifySort(testData.sort.CustomerReview);
+    })
+
+    it.skip('Search & Filtering products by raiting.', () => {
         homePage.searchProduct(testData.searchedBrand);
         searchResultPage.getProducts().getTitles().should('contain', testData.searchedBrand);
         searchResultPage.getFilterBlock().getPriceBlock().setPriceFilter(testData.fromPrice, testData.toPrice);
         searchResultPage.getFilterBlock().getRaitingBlock().setRaitingHigherThan(testData.starRaiting);
-        searchResultPage.getProducts().getStarRaitingAsNumber().should('be.greaterThan', testData.starRaiting);
+        searchResultPage.getProducts().getStarRaitings().each(stringStarRaiting => {
+            const starRaiting = Number(stringStarRaiting.text().match(/[+-]?\d+(\.\d+)?/g)[0]);
+            expect(starRaiting).is.greaterThan(testData.starRaiting);
+        });
     })
 
-    it('Search & Filtering products by price.', () => {
+    it.skip('Search & Filtering products by price.', () => {
         homePage.searchProduct(testData.searchedBrand);
         searchResultPage.getProducts().getTitles().should('contain', testData.searchedBrand);
         searchResultPage.getFilterBlock().getPriceBlock().setPriceFilter(testData.fromPrice, testData.toPrice);
         searchResultPage.getProducts().getPrices().each(stringPrice => {
-            const price = Number(stringPrice.text().substring(1, stringPrice.text().indexOf('.')));
+            const price = Number(stringPrice.text().match(/[+-]?\d+(\.\d+)?/g)[0]);
             expect(price).greaterThan(testData.fromPrice);
             expect(price).lessThan(testData.toPrice);
         })
